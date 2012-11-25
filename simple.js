@@ -11,7 +11,7 @@ var simple = scrapi({
 });
 
 // Create an API object to abstract our code.
-var api = exports = {
+var api = module.exports = {
   authenticate: function (username, password, next) {
     // Signin, using scrapi to store cookies.
     simple('signin').post({
