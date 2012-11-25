@@ -1,0 +1,14 @@
+{
+  "name": "complex-finance",
+  "version": "0.0.1",
+  "description": "A complicated interface to your Simple Finance account.",
+  "main": "simple.js",
+  "dependencies": {
+    "read": "~1.0.4",
+    "scrapi": "~0.0.7"
+  },
+  "keywords": ["complex", "simple", "finance", "api", "scraping", "scrape", "html", "money"],
+  "repository": "https://github.com/tcr/complex-finance",
+  "author": "Tim Cameron Ryan",
+  "license": "MIT"
+}
