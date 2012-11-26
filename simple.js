@@ -22,7 +22,7 @@ var api = module.exports = {
     });
   },
 
-  finances: function (next) {
+  dashboard: function (next) {
     // <script> tags on the page convolute sax-js too much.
     // For now, we'll use a stream instead and regex the relevant code.
     simple.stream('activity').get(function (err, text) {
@@ -44,12 +44,54 @@ var api = module.exports = {
             window: {}
           });
           vm.runInContext(script, vmctx, 'simple.com');
-          var finances = vmctx.window.butcherData;
+          var dashboard = vmctx.window.butcherData;
         }
 
         // Finally we have our finance data!
-        next(!!script, finances);
+        next(!script, dashboard);
       })
+    });
+  },
+
+  user: function (next) {
+    this.dashboard(function (err, json) {
+      next(err, json && json.User);
+    });
+  },
+
+  balances: function (next) {
+    this.dashboard(function (err, json) {
+      next(err, json && json.balances);
+    });
+  },
+
+  goals: function (next) {
+    this.dashboard(function (err, json) {
+      next(err, json && json.Goals);
+    });
+  },
+
+  transactions: function (next) {
+    this.dashboard(function (err, json) {
+      next(err, json && json.Transactions);
+    });
+  },
+
+  fundingAttempts: function (next) {
+    this.dashboard(function (err, json) {
+      next(err, json && json.fundingAttempts);
+    });
+  },
+
+  paymentRequests: function (next) {
+    this.dashboard(function (err, json) {
+      next(err, json && json.PaymentRequests);
+    });
+  },
+
+  payments: function (next) {
+    this.dashboard(function (err, json) {
+      next(err, json && json.Payments);
     });
   }
 };
@@ -64,9 +106,9 @@ if (require.main == module) {
           process.exit(1);
         }
 
-        // Log finance object.
-        api.finances(function (err, finances) {
-          console.log(util.inspect(finances));
+        // Log dashboard object.
+        api.dashboard(function (err, dashboard) {
+          console.log(util.inspect(dashboard));
         })
       })
     });
