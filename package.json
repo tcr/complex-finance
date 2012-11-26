@@ -1,13 +1,27 @@
 {
   "name": "complex-finance",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A complicated interface to your Simple Finance account.",
-  "main": "simple.js",
+  "main": "api.js",
   "dependencies": {
     "read": "~1.0.4",
-    "scrapi": "~0.0.7"
+    "scrapi": "~0.0.7",
+    "nconf": "~0.6.5",
+    "osenv": "0.0.3"
   },
-  "keywords": ["complex", "simple", "finance", "api", "scraping", "scrape", "html", "money"],
+  "bin": {
+    "simple": "./simple.js"
+  },
+  "keywords": [
+    "complex",
+    "simple",
+    "finance",
+    "api",
+    "scraping",
+    "scrape",
+    "html",
+    "money"
+  ],
   "repository": "https://github.com/tcr/complex-finance",
   "author": "Tim Cameron Ryan",
   "license": "MIT"
