@@ -3,11 +3,17 @@ var scrapi = require('scrapi');
 var vm = require('vm');
 var util = require('util');
 
-// Create our scraping API. If there were more HTML to scrape,
-// we'd flesh out the spec.
+// Create our scraping API. The /activity path
+// has a massive <script> blob which contains the dashboard
+// data. The scraper identifies and takes the body of this element.
+
 var simple = scrapi({
   base: 'https://simple.com',
-  spec: { }
+  spec: {
+    'activity': {
+      dashboard_data: '(text) #HelpModal + script'
+    }
+  }
 });
 
 // Create an API object to abstract our code.
@@ -23,33 +29,21 @@ var api = module.exports = {
   },
 
   dashboard: function (next) {
-    // <script> tags on the page convolute sax-js too much.
-    // For now, we'll use a stream instead and regex the relevant code.
-    simple.stream('activity').get(function (err, text) {
+    simple('activity').get(function (err, json) {
+      // Extract the text body.
+      var script = json.dashboard_data;
 
-      // Buffer and extract the code.
-      var bufs = [];
-      text.on('data', function (data) {
-        bufs.push(data);
-      }).on('end', function () {
-        var text = String(Buffer.concat(bufs));
+      // Create a VM to run the script in.
+      if (script) {
+        var vmctx = vm.createContext({
+          window: {}
+        });
+        vm.runInContext(script, vmctx, 'simple.com');
+        var dashboard = vmctx.window.butcherData;
+      }
 
-        // Extract the relevant <script>
-        var script = text.match(/(window\.features[\s\S]*?)<\/script>/);
-        script = script && script[1];
-
-        // Create a VM to run the script in.
-        if (script) {
-          var vmctx = vm.createContext({
-            window: {}
-          });
-          vm.runInContext(script, vmctx, 'simple.com');
-          var dashboard = vmctx.window.butcherData;
-        }
-
-        // Finally we have our finance data!
-        next(!script, dashboard);
-      })
+      // Finally we have our finance data!
+      next(!script, dashboard);
     });
   },
 
