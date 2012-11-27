@@ -1,8 +1,8 @@
 # complex-finance
 
-A complicated interface to your Simple Finance account.
+A Simple Finance API!
 
-## module
+## Module
 
 `npm install complex-finance`
 
@@ -23,31 +23,26 @@ simple.authenticate(username, password, function (err) {
 });
 ```
 
-## test
+## Command line: `simple`
+
+`npm install -g complex-finance`
+
+and simply
 
 ```
-$ node simple.js
-Username: your_username
-Passphrase: 
-{ balances: 
-   { total: ...,
-     safe_to_spend: ...,
-     bills: 0,
-     deposits: 0,
-     pending: 0,
-     goals: 0 },
-  timestamp: { timestamp: ... },
-  Transactions: 
-   [ ... ],
-  User: 
-   { ... },
-  fundingAttempts: 
-   [ ... ],
-  Chats: 
-   [ ... ],
-  ChatsStatus: 
-   { ... },
-  Goals: [],
-  PaymentRequests: [],
-  Payments: [] }
+$ simple login
+Username: ...
+Password: ...
+Logged in.
+
+$ simple balances
+Total:           $200.00
+Safe-to-spend:   $200.00
+
+$ simple transactions
+
 ```
+
+## License
+
+MIT!
