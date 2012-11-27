@@ -6,7 +6,6 @@ var simple = require('./');
 var read = require('read');
 var nconf = require('nconf');
 var osenv = require('osenv');
-var fx = require('money');
 require('colors');
 
 nconf.file(path.join(osenv.home(), '.simpleconf'));
