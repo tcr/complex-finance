@@ -40,7 +40,8 @@ Total:           $200.00
 Safe-to-spend:   $200.00
 
 $ simple transactions
-
+ 1. Github
+     $5.00      Sep 20 2012 09:33:23
 ```
 
 ## License
