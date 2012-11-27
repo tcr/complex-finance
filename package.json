@@ -1,6 +1,6 @@
 {
   "name": "complex-finance",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A complicated interface to your Simple Finance account.",
   "main": "api.js",
   "dependencies": {
